@@ -180,21 +180,26 @@ export default function Home() {
       </div>
 
       {/* 1. HERO SECTION */}
-      <section ref={targetRef} className="relative z-10 w-full min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20">
-        <motion.div style={{ y: parallaxBackdrop }} className="absolute top-[15%] md:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0 pointer-events-none select-none px-4">
+      {/* PERUBAHAN UTAMA: Di mobile tingginya h-[85dvh] (dipendekkan), di desktop kembali ke min-h-[100dvh] (penuh) */}
+      <section ref={targetRef} className="relative z-10 w-full h-[85dvh] md:min-h-[100dvh] md:h-auto flex items-center justify-center overflow-hidden">
+        {/* TEKS "Hey there," */}
+        {/* Karena section sudah pendek, top-[20%] sudah cukup untuk membuatnya dekat dengan navbar */}
+        <motion.div style={{ y: parallaxBackdrop }} className="absolute top-[20%] md:top-[12%] left-1/2 -translate-x-1/2 w-full text-center z-0 pointer-events-none select-none px-2">
           <motion.h1
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[5rem] sm:text-[7rem] md:text-[10rem] lg:text-[13rem] font-serif italic tracking-tighter text-neutral-900/10 dark:text-neutral-50/10 leading-none whitespace-nowrap transition-colors duration-500"
+            className="text-[5rem] sm:text-[6rem] md:text-[10rem] lg:text-[13rem] font-serif italic tracking-tighter text-neutral-900/10 dark:text-neutral-50/10 leading-none whitespace-nowrap transition-colors duration-500"
           >
             Hey there,
           </motion.h1>
         </motion.div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] max-w-2xl z-10 flex justify-center items-end pointer-events-none">
+        {/* FOTO */}
+        {/* Lebar kembali proporsional (w-[110%]), dan tetap menempel di dasar section (bottom-0) yang sekarang posisinya lebih tinggi */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] sm:w-[85%] md:w-[55%] lg:w-[45%] max-w-3xl z-10 flex justify-center items-end pointer-events-none">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[70%] bg-neutral-300/40 dark:bg-white/10 rounded-[100%] blur-[80px] -z-10 transition-colors duration-500"></div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }} className="w-full h-full pointer-events-auto">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }} className="w-full h-full pointer-events-auto flex items-end justify-center">
             <Image
               src="/images/my-photo.png"
               alt="Ivan Bayu Pratama"
@@ -206,42 +211,48 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <div className="absolute inset-0 w-full h-full max-w-[1400px] mx-auto px-6 md:px-12 pointer-events-none z-20">
-          <motion.div style={{ y: parallaxForegroundFast }} className="absolute bottom-[20%] md:bottom-[15%] left-6 md:left-12 pointer-events-auto">
+        <div className="absolute inset-0 w-full h-full max-w-[1400px] mx-auto px-4 md:px-12 pointer-events-none z-20">
+          {/* TEKS "I'm Ivan" */}
+          <motion.div style={{ y: parallaxForegroundFast }} className="absolute bottom-[16%] md:bottom-[15%] left-4 sm:left-6 md:left-12 pointer-events-auto z-20">
             <motion.h2
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[3.5rem] sm:text-[5rem] md:text-[6rem] lg:text-[8rem] font-black sentence-case leading-[0.85] tracking-tighter text-neutral-900 dark:text-neutral-50 drop-shadow-xl transition-colors duration-500"
+              className="text-[4.5rem] sm:text-[5.5rem] md:text-[7rem] lg:text-[8rem] font-black sentence-case leading-[0.85] tracking-tighter text-neutral-900 dark:text-neutral-50 drop-shadow-xl transition-colors duration-500"
             >
               I'm <br /> Ivan
             </motion.h2>
           </motion.div>
 
-          <motion.div style={{ y: parallaxForegroundFast }} className="absolute bottom-[20%] md:bottom-[15%] right-6 md:right-16 lg:right-24 flex flex-col items-end gap-6 pointer-events-auto">
+          {/* TEKS "UI UX & SYSTEM ANALYST" */}
+          <motion.div style={{ y: parallaxForegroundFast }} className="absolute bottom-[16%] md:bottom-[15%] right-4 sm:right-6 md:right-16 lg:right-24 flex flex-col items-end gap-2 md:gap-6 pointer-events-auto z-20">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="px-5 py-2 bg-white/70 dark:bg-[#1C1C1E]/70 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-full flex items-center gap-3 shadow-sm transition-colors duration-500"
+              className="px-3 md:px-5 py-2 bg-white/70 dark:bg-[#1C1C1E]/70 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-full flex items-center gap-2 shadow-sm transition-colors duration-500"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
               </span>
-              <span className="text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-colors duration-500">Available for new opportunities</span>
+              <span className="text-[9px] md:text-xs font-semibold text-neutral-800 dark:text-neutral-200 transition-colors duration-500">Available for new opportunities</span>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: 80 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col items-end gap-1">
-              <span className="text-2xl md:text-4xl font-serif italic text-neutral-500 dark:text-neutral-400 -mb-2 md:-mb-3 z-10 transition-colors duration-500">Enthusiast</span>
-              <h2 className="text-[1.5rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-black uppercase leading-none tracking-tighter text-neutral-900 dark:text-neutral-50 text-right drop-shadow-xl transition-colors duration-500">
+            <motion.div initial={{ opacity: 0, y: 80 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }} className="flex flex-col items-end gap-0 md:gap-1">
+              <span className="text-xl sm:text-2xl md:text-4xl font-serif italic text-neutral-500 dark:text-neutral-400 -mb-1 md:-mb-3 z-10 transition-colors duration-500">Enthusiast</span>
+              <h2 className="text-[1.25rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-black uppercase leading-none tracking-tighter text-neutral-900 dark:text-neutral-50 text-right drop-shadow-xl transition-colors duration-500">
                 UI UX & <br /> SYSTEM ANALYST
               </h2>
             </motion.div>
           </motion.div>
 
-          <motion.div style={{ opacity: buttonOpacity }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-auto">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }} className="flex gap-4">
-              <a href="#featured" className="px-8 py-4 bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 text-sm font-bold rounded-full hover:scale-105 transition-transform shadow-lg duration-500">
+          {/* TOMBOL EXPLORE */}
+          <motion.div style={{ opacity: buttonOpacity }} className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-auto w-[90%] sm:w-auto justify-center z-30">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }} className="flex gap-4 w-full sm:w-auto">
+              <a
+                href="#featured"
+                className="w-full sm:w-auto text-center px-8 py-4 bg-neutral-900 dark:bg-neutral-50 text-white dark:text-neutral-900 text-sm font-bold rounded-full hover:scale-105 transition-transform shadow-lg duration-500"
+              >
                 Explore Work
               </a>
               <Link
