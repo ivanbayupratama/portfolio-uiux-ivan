@@ -7,10 +7,8 @@ import { createPortal } from "react-dom";
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useAnimationFrame } from "framer-motion";
 import FadeIn from "@/components/FadeIn";
 
-// MENGIMPOR SEMUA DATA DARI LIB/DATA.TS
 import { toolsData, skillsData, certificatesData, caseStudiesDB } from "@/lib/data";
 
-// --- KOMPONEN 3D GLASSMORPHISM TILT ---
 const TiltIconBox = ({ icon, colorClass }: { icon: ReactNode; colorClass: string }) => {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
@@ -60,7 +58,6 @@ const TiltIconBox = ({ icon, colorClass }: { icon: ReactNode; colorClass: string
   );
 };
 
-// --- COASTER ITEM UNTUK SOFTWARE & TOOLS ---
 const CoasterItem = ({ item, index, totalItems, coasterProgress, setIsCoasterHovered }: any) => {
   const offset = (index / totalItems) * 65;
 
@@ -68,7 +65,6 @@ const CoasterItem = ({ item, index, totalItems, coasterProgress, setIsCoasterHov
     return `${(p + offset) % 100}%`;
   });
 
-  // SAFETY CHECK: Mencegah TypeError jika icon undefined di data.ts
   if (!item || !item.icon) return null;
 
   return (
@@ -100,7 +96,6 @@ export default function Home() {
   const [selectedCert, setSelectedCert] = useState<any | null>(null);
   const [mounted, setMounted] = useState(false);
 
-  // --- Animasi Coaster Software & Tools ---
   const [isCoasterHovered, setIsCoasterHovered] = useState(false);
   const coasterProgress = useMotionValue(0);
   const coasterSpeed = useSpring(0.0035, { stiffness: 40, damping: 15, mass: 1 });
@@ -125,7 +120,6 @@ export default function Home() {
   const parallaxBackdrop = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const parallaxForegroundFast = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
-  // --- LOGIKA MOBILE CORE APPROACH ZIG-ZAG ---
   const { scrollYProgress: approachScrollMobile } = useScroll({
     target: approachRef,
     offset: ["start 85%", "end 60%"],
@@ -139,7 +133,6 @@ export default function Home() {
   const l3Scale = useTransform(approachScrollMobile, [0.7, 0.84], [0, 1]);
   const n4Op = useTransform(approachScrollMobile, [0.84, 0.98], [0, 1]);
 
-  // --- LOGIKA UTAMA: HORIZONTAL SCROLL CORE APPROACH DESKTOP ---
   const { scrollYProgress: roadScrollProgress } = useScroll({
     target: approachScrollRef,
     offset: ["start start", "end end"],
@@ -365,7 +358,6 @@ export default function Home() {
           </div>
         </FadeIn>
 
-        {/* --- DESKTOP: ROLLER COASTER LAYOUT --- */}
         <div className="hidden sm:flex relative w-full h-[400px] overflow-hidden mask-[linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mt-8 justify-center items-center">
           <div className="relative w-[1200px] h-[400px] shrink-0 pointer-events-none">
             {duplicatedTools.map((item, index) => (
@@ -374,7 +366,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* --- MOBILE: MENDATAR --- */}
         <FadeIn direction="up" delay={0.2} className="sm:hidden mt-4">
           <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <motion.div className="flex w-max hover:[animation-play-state:paused]" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 15 }}>
@@ -448,9 +439,7 @@ export default function Home() {
       {/* ========================================= */}
       {/* 5. CORE APPROACH SECTION */}
       {/* ========================================= */}
-      {/* sm:h-[250vh] HANYA berlaku untuk Desktop agar ada ruang scroll horizontal. Di Mobile, ini diabaikan agar tidak nge-bug */}
       <section ref={approachScrollRef} className="relative z-10 py-20 md:py-0 sm:h-[250vh] bg-neutral-50 dark:bg-[#0a0a0a] transition-colors duration-500">
-        {/* CSS KEYFRAME UNTUK ANIMASI "ISI DAYA / LOADING" PADA GARIS */}
         <style>{`
           @keyframes chargingFlow {
             from { stroke-dashoffset: 40; }
@@ -461,19 +450,18 @@ export default function Home() {
           }
         `}</style>
 
-        {/* sm:sticky sm:h-screen HANYA berlaku untuk Desktop. Di mobile akan mengalir normal (tidak tertahan) */}
         <div className="sm:sticky sm:top-0 sm:h-screen flex flex-col justify-center overflow-hidden">
           <div className="text-center mb-10 md:mb-6 relative z-20 px-6 md:px-8 shrink-0">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-2 md:mb-3 text-neutral-900 dark:text-neutral-50 transition-colors duration-500">Core Approach</h2>
             <p className="text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto text-xs md:text-sm transition-colors duration-500">A systematic workflow ensuring every interface is logically sound before it becomes visually stunning.</p>
           </div>
 
-          {/* --- DESKTOP: HORIZONTAL SCROLL WINDING ROAD --- */}
+          {/* --- Dekstop:--- */}
           <div className="hidden sm:block relative w-full h-[380px] overflow-hidden mask-[linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
             <motion.div style={{ x: roadXTransform }} className="absolute top-0 left-0 w-[1800px] h-full flex items-center">
               <svg viewBox="0 0 1800 380" className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-sm">
                 <defs>
-                  {/* MASKING: Untuk memastikan animasi "charging" hanya terlihat pada garis yang sudah dilewati */}
+                  {/* Masking */}
                   <mask id="progressMask">
                     <motion.path
                       d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
@@ -486,7 +474,7 @@ export default function Home() {
                   </mask>
                 </defs>
 
-                {/* 1. Base Road (Jalan Dasar abu-abu gelap) */}
+                {/* 1. Base Road */}
                 <path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
@@ -496,7 +484,7 @@ export default function Home() {
                   className="text-neutral-200 dark:text-neutral-800"
                 />
 
-                {/* 2. Solid Blue Line (Garis Progress BIRU SOLID) */}
+                {/* 2. Solid Blue Line  */}
                 <motion.path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
@@ -506,7 +494,7 @@ export default function Home() {
                   style={{ pathLength: roadScrollProgress }}
                 />
 
-                {/* 3. Animasi "Loading/Isi Daya" (Biru terang mengalir di dalam bar) */}
+                {/* 3. Animasi "Loading" */}
                 <path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
@@ -519,7 +507,7 @@ export default function Home() {
                 />
               </svg>
 
-              {/* NODE 01 (Lembah) */}
+              {/* NODE 01*/}
               <motion.div
                 className="absolute top-[270px] left-[350px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group"
                 style={{
@@ -539,7 +527,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* NODE 02 (Puncak) */}
+              {/* NODE 02 */}
               <motion.div
                 className="absolute top-[110px] left-[750px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group"
                 style={{
@@ -559,7 +547,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* NODE 03 (Lembah) */}
+              {/* NODE 03*/}
               <motion.div
                 className="absolute top-[270px] left-[1150px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group"
                 style={{
@@ -584,7 +572,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* NODE 04 (Puncak) */}
+              {/* NODE 04 */}
               <motion.div
                 className="absolute top-[110px] left-[1550px] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group"
                 style={{
@@ -606,8 +594,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* --- MOBILE: ZIG-ZAG --- */}
-          {/* Di mobile, section ini akan mengalir normal (smooth). Interval dibagi rata 14%. */}
           <div ref={approachRef} style={{ position: "relative" }} className="sm:hidden w-full max-w-[340px] mx-auto flex flex-col relative z-10 pt-2 pb-2">
             <div className="flex justify-between relative w-full">
               <div className="absolute top-[28px] left-[calc(25%+36px)] right-[calc(25%+36px)] h-[2px] bg-neutral-200 dark:bg-neutral-800 z-0">
@@ -722,7 +708,7 @@ export default function Home() {
       </section>
 
       {/* 7. CASE STUDIES SECTION */}
-      <section id="case-studies" className="relative z-10 py-20 md:py-32 px-6 md:px-8 max-w-[1400px] mx-auto border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-500 scroll-mt-16 overflow-hidden">
+      <section id="case-studies" className="relative z-10 py-16 md:py-24 px-6 md:px-8 max-w-[1400px] mx-auto border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-500 scroll-mt-16 overflow-hidden">
         <FadeIn direction="up">
           <div className="flex flex-row justify-between items-end mb-8 md:mb-12 max-w-6xl mx-auto">
             <div className="max-w-2xl">
@@ -733,24 +719,25 @@ export default function Home() {
         </FadeIn>
 
         <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-5 no-scrollbar pb-8 -mx-6 px-6 md:mx-auto md:px-0 max-w-6xl items-start">
-          {Object.entries(caseStudiesDB).map(([slug, project]) => (
+          {Object.entries(caseStudiesDB || {}).map(([slug, project]) => (
             <motion.div
               key={slug}
               whileHover={{ y: -5 }}
               className="flex-none w-[80vw] sm:w-[280px] md:w-[320px] snap-center bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-[1.5rem] md:rounded-[1.8rem] p-2 md:p-2.5 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group/card h-fit"
             >
               <div className="relative w-full rounded-[1rem] md:rounded-[1.2rem] overflow-hidden group/image">
-                <img src={project.images[0]} alt={project.title} className="w-full h-auto block transition-transform duration-700 group-hover/image:scale-105" />
+                {/* Menggunakan Optional Chaining ?. agar aman jika image tidak ada */}
+                <img src={project?.images?.[0] || "/placeholder.jpg"} alt={project?.title || "Project"} className="w-full h-auto block transition-transform duration-700 group-hover/image:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 flex justify-between items-end gap-2">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-lg font-bold text-white leading-tight truncate mb-1">{project.title.split(" - ")[0]}</h3>
+                    <h3 className="text-base md:text-lg font-bold text-white leading-tight truncate mb-1">{project?.title?.split(" - ")[0] || "Untitled Project"}</h3>
                     <div className="flex items-center gap-1.5 text-white/80 text-[10px] md:text-xs font-medium">
                       <svg className="w-3 h-3 md:w-3.5 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span className="truncate">{project.role}</span>
+                      <span className="truncate">{project?.role || "Designer"}</span>
                     </div>
                   </div>
                   <Link
@@ -768,14 +755,14 @@ export default function Home() {
                 <div className="flex gap-4 md:gap-5 mb-2">
                   <div>
                     <span className="block text-[9px] md:text-[10px] text-neutral-400 font-medium mb-0.5">Focus</span>
-                    <span className="block text-[11px] md:text-xs font-bold text-neutral-700 dark:text-neutral-200">{project.role.split(" ")[0]}</span>
+                    <span className="block text-[11px] md:text-xs font-bold text-neutral-700 dark:text-neutral-200">{project?.role?.split(" ")[0] || "-"}</span>
                   </div>
                   <div>
                     <span className="block text-[9px] md:text-[10px] text-neutral-400 font-medium mb-0.5">Platform</span>
                     <span className="block text-[11px] md:text-xs font-bold text-neutral-700 dark:text-neutral-200">Cross-Platform</span>
                   </div>
                 </div>
-                <p className="text-[10px] md:text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">{project.outcome}</p>
+                <p className="text-[10px] md:text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">{project?.outcome || "No description available."}</p>
               </div>
             </motion.div>
           ))}
