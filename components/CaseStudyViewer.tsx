@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { createPortal } from "react-dom";
-import FadeIn from "./FadeIn"; // Pastikan path komponen FadeIn Anda sudah benar
+import FadeIn from "./FadeIn";
 
 // 1. INTERFACE UPDATE
 export interface CaseStudyData {
@@ -35,7 +35,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
     setCurrentIndex((prev) => (prev === 0 ? data.images.length - 1 : prev - 1));
   };
 
-  // Mengunci scroll website saat presentasi fullscreen dibuka
+  // lock scroll website saat presentasi fullscreen dibuka
   useEffect(() => {
     if (isLightboxOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "auto";
@@ -62,7 +62,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
             <img src={data.images[currentIndex]} alt="Slide Detail" className="max-w-full max-h-full object-contain drop-shadow-2xl" onClick={(e) => e.stopPropagation()} />
           </div>
 
-          {/* Navigasi Kiri/Kanan di Fullscreen (Hanya muncul jika gambar > 1) */}
+          {/* Navigasi Kiri/Kanan di Fullscreen  */}
           {data.images.length > 1 && (
             <>
               <button onClick={handlePrev} className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all">
@@ -106,7 +106,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
               </AnimatePresence>
             </div>
 
-            {/* OVERLAY GLASSMORPHISM (Hanya aktif jika gambar > 1) */}
+            {/* OVERLAY GLASSMORPHISM */}
             {data.images.length > 1 && (
               <>
                 <div
@@ -126,7 +126,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
               </>
             )}
 
-            {/* NAVIGASI PREV/NEXT (Kiri - Kanan) -> Hanya muncul jika gambar > 1 */}
+            {/* NAVIGASI PREV/NEXT  */}
             {data.images.length > 1 && (
               <>
                 <button
@@ -156,7 +156,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
             )}
           </FadeIn>
 
-          {/* HINT MOBILE: Hanya muncul jika gambar > 1 */}
+          {/* HINT MOBILE: */}
           {data.images.length > 1 && (
             <FadeIn direction="up" delay={0.3} className="md:hidden mt-6 flex items-center justify-center gap-2 text-neutral-500 dark:text-neutral-400">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-orange-500 animate-pulse">
@@ -169,7 +169,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
             </FadeIn>
           )}
 
-          {/* TEASER / WORK IN PROGRESS STATE (Otomatis muncul jika gambar baru 1) */}
+          {/* TEASER / WORK IN PROGRESS STATE */}
           {data.images.length === 1 && (
             <FadeIn direction="up" delay={0.3} className="mt-8 p-8 rounded-3xl bg-neutral-100 dark:bg-neutral-900 border-2 border-dashed border-neutral-300 dark:border-neutral-800 flex flex-col items-center justify-center text-center">
               <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-500/20 text-orange-500 flex items-center justify-center mb-4">
@@ -183,7 +183,7 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
           )}
         </div>
 
-        {/* ================= SISI KANAN: PENJELASAN (STICKY) ================= */}
+        {/* ================= SISI KANAN: PENJELASAN ================= */}
         <div className="w-full md:w-[40%] lg:w-[35%]">
           <div className="md:sticky md:top-32 space-y-12">
             {/* Header Judul & Info */}
@@ -222,7 +222,6 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
               </FadeIn>
             </div>
 
-            {/* TOMBOL LIVE PROTOTYPE (Otomatis muncul jika ada link Figma di data.ts) */}
             {data.prototypeLink && (
               <FadeIn direction="left" delay={0.4} className="pt-4">
                 <a
@@ -245,7 +244,6 @@ export default function CaseStudyViewer({ data }: { data: CaseStudyData }) {
         </div>
       </div>
 
-      {/* Render Lightbox di atas segalanya */}
       {mounted && createPortal(Lightbox, document.body)}
     </div>
   );

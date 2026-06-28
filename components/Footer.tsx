@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Baris Bawah (Bottom Line) */}
+        {/* Baris Bawah*/}
         <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-neutral-200 dark:border-neutral-800 text-sm text-neutral-500 dark:text-neutral-400 font-medium tracking-wide">
           <p>&copy; 2026 Ivan Bayu Pratama. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0 uppercase text-xs tracking-widest">
