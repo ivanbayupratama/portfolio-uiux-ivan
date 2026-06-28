@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
-  // Mencegah error Hydration Mismatch dari Next.js
   useEffect(() => {
     setMounted(true);
   }, []);

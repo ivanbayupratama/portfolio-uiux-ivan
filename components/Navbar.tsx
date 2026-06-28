@@ -29,10 +29,10 @@ export default function Navbar() {
         <Link href="/" className="dark:text-neutral-400 dark:hover:text-white hover:text-neutral-900 transition-colors" onClick={() => setIsOpen(false)}>
           Home
         </Link>
-        <Link href="/about" className="dark:text-neutral-400 dark:hover:text-white hover:text-neutral-900 transition-colors" onClick={() => setIsOpen(false)}>
+        <Link href="#about" className="dark:text-neutral-400 dark:hover:text-white hover:text-neutral-900 transition-colors" onClick={() => setIsOpen(false)}>
           About
         </Link>
-        <Link href="/case-studies" className="dark:text-neutral-400 dark:hover:text-white hover:text-neutral-900 transition-colors" onClick={() => setIsOpen(false)}>
+        <Link href="#case-studies" className="dark:text-neutral-400 dark:hover:text-white hover:text-neutral-900 transition-colors" onClick={() => setIsOpen(false)}>
           Case Studies
         </Link>
       </div>
