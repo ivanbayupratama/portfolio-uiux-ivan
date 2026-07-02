@@ -67,7 +67,7 @@ const CoasterItem = ({ item, index, totalItems, coasterProgress, setIsCoasterHov
   const distance = useTransform(coasterProgress, (p: number) => {
     return `${(p + offset) % 100}%`;
   });
-
+  if (!item || !item.icon) return null;
   return (
     <motion.div
       className="absolute top-0 left-0 pointer-events-auto"
@@ -385,9 +385,7 @@ export default function Home() {
                     key={`block1-${index}`}
                     className="flex items-center gap-2 px-5 py-2 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs text-neutral-600 dark:text-neutral-400 font-medium whitespace-nowrap shadow-sm transition-colors duration-500"
                   >
-                    <span>
-                      <item.icon className="w-5 h-5" />
-                    </span>
+                    <span>{item?.icon && <item.icon className="w-5 h-5" />}</span>
                     {item.name}
                   </div>
                 ))}
