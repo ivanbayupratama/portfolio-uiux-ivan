@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DarkVeil from "../components/DarkVeil";
 import Image from "next/image";
 import { useState, useEffect, useRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -218,14 +219,19 @@ export default function Home() {
 
   return (
     <main className="relative bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-50 transition-colors duration-500" suppressHydrationWarning>
-      <div className="absolute top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden">
-        <div
-          className="absolute inset-0 w-full h-full opacity-[0.9] dark:opacity-[0.4] dark:invert bg-[length:256px_256px] bg-repeat"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        ></div>
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-linear-to-t from-neutral-50 dark:from-neutral-950 to-transparent transition-colors duration-500"></div>
+  <div className="absolute top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden bg-black">
+        
+        <DarkVeil 
+          hueShift={20}
+          noiseIntensity={0.12}
+          scanlineIntensity={0}
+          speed={2}
+          scanlineFrequency={0}
+          warpAmount={0.8}
+          resolutionScale={1.25}
+        />
+     
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent z-10"></div>
       </div>
 
       {/* 1. HERO SECTION */}
@@ -243,15 +249,23 @@ export default function Home() {
           </motion.div>
 
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[105%] sm:w-[85%] md:w-[48%] lg:w-[42%] max-w-[800px] z-10 flex justify-center items-end pointer-events-none">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[70%] bg-neutral-300/40 dark:bg-white/10 rounded-[100%] blur-[80px] -z-10 transition-colors duration-500"></div>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.5, ease: "easeOut" }} className="w-full h-full pointer-events-auto flex items-end justify-center">
+            
+            {/* ELEMEN BLUR CAHAYA (KABUT) SUDAH DIHAPUS DARI SINI */}
+
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              transition={{ duration: 1.5, ease: "easeOut" }} 
+              className="w-full h-full pointer-events-auto flex items-end justify-center"
+            >
               <Image
                 src="/images/my-photo.png"
                 alt="Ivan Bayu Pratama"
                 width={800}
                 height={1000}
                 priority
-                className="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_30px_rgba(255,255,255,0.05)] transition-all duration-500"
+                /* Saya juga menghapus efek bayangan putih (white drop-shadow) tipis di dark mode agar fotonya benar-benar menyatu tajam dengan background */
+                className="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500"
               />
             </motion.div>
           </div>
@@ -409,7 +423,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 md:gap-y-10 max-w-4xl mx-auto">
-            {skillsData.map((skill, idx) => (
+           {skillsData.map((skill, idx) => (
               <FadeIn direction="up" delay={0.1 * idx} key={idx}>
                 <motion.div initial="initial" whileInView="animate" viewport={{ once: true, margin: "-50px" }} className="py-1">
                   <div className="flex justify-between items-center mb-2 md:mb-3">
@@ -422,12 +436,27 @@ export default function Home() {
                       {skill.level}%
                     </motion.span>
                   </div>
-                  <div className="h-1.5 md:h-2 w-full bg-neutral-200 dark:bg-neutral-800 rounded-full overflow-hidden transition-colors duration-500">
-                    <motion.div
-                      variants={{ initial: { width: "0%" }, animate: { width: `${skill.level}%` } }}
-                      transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-                      className="h-full bg-neutral-900 dark:bg-neutral-50 rounded-full transition-colors duration-500"
-                    />
+                  
+                  <div className="flex gap-1 md:gap-[6px] w-full">
+                    {[...Array(10)].map((_, i) => {
+                      const isActive = i < Math.round(skill.level / 10);
+                      
+                      return (
+                        <motion.div
+                          key={i}
+                          variants={{
+                            initial: { opacity: 0, scale: 0.8 },
+                            animate: { opacity: 1, scale: 1 }
+                          }}
+                          transition={{ duration: 0.3, delay: 0.2 + (i * 0.05) }}
+                          className={`h-2 md:h-[10px] flex-1 rounded-[2px] transition-all duration-500 ${
+                            isActive
+                              ? "bg-[#0779fa] shadow-[0_0_8px_rgba(7,121,250,0.5)] dark:bg-[#0779fa] dark:shadow-[0_0_12px_rgba(7,121,250,0.7)]"
+                              : "bg-neutral-200 dark:bg-neutral-800"
+                          }`}
+                        />
+                      );
+                    })}
                   </div>
                 </motion.div>
               </FadeIn>
@@ -436,7 +465,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ========================================= */}
+ {/* ========================================= */}
       {/* 5. CORE APPROACH SECTION */}
       {/* ========================================= */}
       <section ref={approachScrollRef} className="relative z-10 py-20 md:py-0 sm:h-[250vh] bg-neutral-50 dark:bg-[#0a0a0a] transition-colors duration-500">
@@ -488,9 +517,10 @@ export default function Home() {
                 <motion.path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
-                  stroke="#3b82f6"
+                  stroke="#0779fa"
                   strokeWidth="28"
                   strokeLinecap="round"
+                  className="drop-shadow-[0_0_12px_rgba(7,121,250,0.8)]"
                   style={{ pathLength: roadScrollProgress }}
                 />
 
@@ -498,12 +528,12 @@ export default function Home() {
                 <path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
-                  stroke="#93c5fd"
+                  stroke="#0779fa"
                   strokeWidth="28"
                   strokeLinecap="round"
                   strokeDasharray="40 60"
                   mask="url(#progressMask)"
-                  className="opacity-50 animate-charging"
+                  className="opacity-60 animate-charging drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]"
                 />
               </svg>
 
@@ -516,12 +546,12 @@ export default function Home() {
                 }}
               >
                 <div className="absolute bottom-[calc(100%+16px)] text-center w-48 md:w-56">
-                  <span className="text-[11px] font-bold tracking-widest text-blue-500 uppercase">Step 01</span>
+                  <span className="text-[11px] font-bold tracking-widest text-[#0779fa] drop-shadow-[0_0_5px_rgba(7,121,250,0.5)] uppercase">Step 01</span>
                   <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-50 transition-colors duration-500">System Analysis</h3>
                   <p className="text-neutral-500 dark:text-neutral-400 text-xs md:text-sm mt-0.5 leading-relaxed transition-colors duration-500">Deconstructing user flows, database structures, and constraints.</p>
                 </div>
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-neutral-900 border-[8px] border-blue-500 rounded-full flex items-center justify-center shadow-md transition-transform duration-500 group-hover:scale-110 z-10">
-                  <svg className="w-7 h-7 md:w-9 md:h-9 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-neutral-900 border-[8px] border-[#0779fa] shadow-[0_0_20px_rgba(7,121,250,0.5)] rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 z-10">
+                  <svg className="w-7 h-7 md:w-9 md:h-9 text-[#0779fa] drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                   </svg>
                 </div>
@@ -535,13 +565,13 @@ export default function Home() {
                   scale: useTransform(roadScrollProgress, [0.35, 0.43], [0.8, 1]),
                 }}
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-neutral-900 border-[8px] border-blue-500 rounded-full flex items-center justify-center shadow-md transition-transform duration-500 group-hover:scale-110 z-10">
-                  <svg className="w-7 h-7 md:w-9 md:h-9 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-neutral-900 border-[8px] border-[#0779fa] shadow-[0_0_20px_rgba(7,121,250,0.5)] rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 z-10">
+                  <svg className="w-7 h-7 md:w-9 md:h-9 text-[#0779fa] drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
                 <div className="absolute top-[calc(100%+16px)] text-center w-48 md:w-56">
-                  <span className="text-[11px] font-bold tracking-widest text-blue-500 uppercase">Step 02</span>
+                  <span className="text-[11px] font-bold tracking-widest text-[#0779fa] drop-shadow-[0_0_5px_rgba(7,121,250,0.5)] uppercase">Step 02</span>
                   <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-50 transition-colors duration-500">UX Research</h3>
                   <p className="text-neutral-500 dark:text-neutral-400 text-xs md:text-sm mt-0.5 leading-relaxed transition-colors duration-500">Mapping user journeys and wireframing for frictionless navigation.</p>
                 </div>
@@ -556,12 +586,12 @@ export default function Home() {
                 }}
               >
                 <div className="absolute bottom-[calc(100%+16px)] text-center w-48 md:w-56">
-                  <span className="text-[11px] font-bold tracking-widest text-blue-500 uppercase">Step 03</span>
+                  <span className="text-[11px] font-bold tracking-widest text-[#0779fa] drop-shadow-[0_0_5px_rgba(7,121,250,0.5)] uppercase">Step 03</span>
                   <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-50 transition-colors duration-500">UI Prototyping</h3>
                   <p className="text-neutral-500 dark:text-neutral-400 text-xs md:text-sm mt-0.5 leading-relaxed transition-colors duration-500">Translating wireframes into interactive, high-fidelity designs.</p>
                 </div>
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-neutral-900 border-[8px] border-blue-500 rounded-full flex items-center justify-center shadow-md transition-transform duration-500 group-hover:scale-110 z-10">
-                  <svg className="w-7 h-7 md:w-9 md:h-9 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-neutral-900 border-[8px] border-[#0779fa] shadow-[0_0_20px_rgba(7,121,250,0.5)] rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 z-10">
+                  <svg className="w-7 h-7 md:w-9 md:h-9 text-[#0779fa] drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -580,13 +610,13 @@ export default function Home() {
                   scale: useTransform(roadScrollProgress, [0.78, 0.86], [0.8, 1]),
                 }}
               >
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-white dark:bg-neutral-900 border-[8px] border-blue-500 rounded-full flex items-center justify-center shadow-md transition-transform duration-500 group-hover:scale-110 z-10">
-                  <svg className="w-8 h-8 md:w-10 md:h-10 relative top-px text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-neutral-900 border-[8px] border-[#0779fa] shadow-[0_0_20px_rgba(7,121,250,0.5)] rounded-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110 z-10">
+                  <svg className="w-8 h-8 md:w-10 md:h-10 relative top-px text-[#0779fa] drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                   </svg>
                 </div>
                 <div className="absolute top-[calc(100%+16px)] text-center w-48 md:w-56">
-                  <span className="text-[11px] font-bold tracking-widest text-blue-500 uppercase">Step 04</span>
+                  <span className="text-[11px] font-bold tracking-widest text-[#0779fa] drop-shadow-[0_0_5px_rgba(7,121,250,0.5)] uppercase">Step 04</span>
                   <h3 className="text-base md:text-lg font-bold text-neutral-900 dark:text-neutral-50 transition-colors duration-500">Dev Handoff</h3>
                   <p className="text-neutral-500 dark:text-neutral-400 text-xs md:text-sm mt-0.5 leading-relaxed transition-colors duration-500">Delivering comprehensive design systems to accelerate execution.</p>
                 </div>
@@ -594,17 +624,18 @@ export default function Home() {
             </motion.div>
           </div>
 
+          {/* --- Mobile View --- */}
           <div ref={approachRef} style={{ position: "relative" }} className="sm:hidden w-full max-w-[340px] mx-auto flex flex-col relative z-10 pt-2 pb-2">
             <div className="flex justify-between relative w-full">
               <div className="absolute top-[28px] left-[calc(25%+36px)] right-[calc(25%+36px)] h-[2px] bg-neutral-200 dark:bg-neutral-800 z-0">
-                <motion.div style={{ scaleX: l1Scale, transformOrigin: "left" }} className="w-full h-full bg-blue-500" />
+                <motion.div style={{ scaleX: l1Scale, transformOrigin: "left" }} className="w-full h-full bg-[#0779fa] shadow-[0_0_10px_rgba(7,121,250,0.8)]" />
               </div>
 
               <motion.div style={{ opacity: n1Op }} className="flex flex-col items-center text-center w-1/2 z-10 px-1">
                 <TiltIconBox
-                  colorClass="text-blue-500 border-blue-500"
+                  colorClass="text-[#0779fa] border-[#0779fa]/50 bg-[#0779fa]/10 shadow-[0_0_15px_rgba(7,121,250,0.4)]"
                   icon={
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                   }
@@ -615,9 +646,9 @@ export default function Home() {
 
               <motion.div style={{ opacity: n2Op }} className="flex flex-col items-center text-center w-1/2 z-10 px-1">
                 <TiltIconBox
-                  colorClass="text-blue-500 border-blue-500"
+                  colorClass="text-[#0779fa] border-[#0779fa]/50 bg-[#0779fa]/10 shadow-[0_0_15px_rgba(7,121,250,0.4)]"
                   icon={
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                   }
@@ -629,20 +660,20 @@ export default function Home() {
 
             <div className="h-10 w-full relative flex justify-end pr-[calc(25%-1px)] my-1">
               <div className="w-[2px] h-full bg-neutral-200 dark:bg-neutral-800">
-                <motion.div style={{ scaleY: l2Scale, transformOrigin: "top" }} className="w-full h-full bg-blue-500" />
+                <motion.div style={{ scaleY: l2Scale, transformOrigin: "top" }} className="w-full h-full bg-[#0779fa] shadow-[0_0_10px_rgba(7,121,250,0.8)]" />
               </div>
             </div>
 
             <div className="flex flex-row-reverse justify-between relative w-full">
               <div className="absolute top-[28px] left-[calc(25%+36px)] right-[calc(25%+36px)] h-[2px] bg-neutral-200 dark:bg-neutral-800 z-0">
-                <motion.div style={{ scaleX: l3Scale, transformOrigin: "right" }} className="w-full h-full bg-blue-500" />
+                <motion.div style={{ scaleX: l3Scale, transformOrigin: "right" }} className="w-full h-full bg-[#0779fa] shadow-[0_0_10px_rgba(7,121,250,0.8)]" />
               </div>
 
               <motion.div style={{ opacity: n3Op }} className="flex flex-col items-center text-center w-1/2 z-10 px-1">
                 <TiltIconBox
-                  colorClass="text-blue-500 border-blue-500"
+                  colorClass="text-[#0779fa] border-[#0779fa]/50 bg-[#0779fa]/10 shadow-[0_0_15px_rgba(7,121,250,0.4)]"
                   icon={
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -658,9 +689,9 @@ export default function Home() {
 
               <motion.div style={{ opacity: n4Op }} className="flex flex-col items-center text-center w-1/2 z-10 px-1">
                 <TiltIconBox
-                  colorClass="text-blue-500 border-blue-500"
+                  colorClass="text-[#0779fa] border-[#0779fa]/50 bg-[#0779fa]/10 shadow-[0_0_15px_rgba(7,121,250,0.4)]"
                   icon={
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8 drop-shadow-[0_0_8px_rgba(7,121,250,0.8)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                     </svg>
                   }
@@ -726,7 +757,6 @@ export default function Home() {
               className="flex-none w-[80vw] sm:w-[280px] md:w-[320px] snap-center bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-[1.5rem] md:rounded-[1.8rem] p-2 md:p-2.5 shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group/card h-fit"
             >
               <div className="relative w-full rounded-[1rem] md:rounded-[1.2rem] overflow-hidden group/image">
-                {/* Menggunakan Optional Chaining ?. agar aman jika image tidak ada */}
                 <img src={project?.images?.[0] || "/placeholder.jpg"} alt={project?.title || "Project"} className="w-full h-auto block transition-transform duration-700 group-hover/image:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 flex justify-between items-end gap-2">
