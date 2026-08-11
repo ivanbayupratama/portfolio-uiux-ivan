@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DomeGallery from "@/components/DomeGallery";
 import DarkVeil from "../components/DarkVeil";
 import Image from "next/image";
 import { useState, useEffect, useRef, ReactNode } from "react";
@@ -250,7 +251,6 @@ export default function Home() {
 
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[105%] sm:w-[85%] md:w-[48%] lg:w-[42%] max-w-[800px] z-10 flex justify-center items-end pointer-events-none">
             
-            {/* ELEMEN BLUR CAHAYA (KABUT) SUDAH DIHAPUS DARI SINI */}
 
             <motion.div 
               initial={{ opacity: 0 }} 
@@ -264,7 +264,6 @@ export default function Home() {
                 width={800}
                 height={1000}
                 priority
-                /* Saya juga menghapus efek bayangan putih (white drop-shadow) tipis di dark mode agar fotonya benar-benar menyatu tajam dengan background */
                 className="w-full h-auto object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-500"
               />
             </motion.div>
@@ -306,59 +305,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. ABOUT ME SECTION */}
-      <section id="about" className="relative z-10 py-20 md:py-32 px-6 md:px-8 max-w-6xl mx-auto scroll-mt-16">
-        <FadeIn direction="up">
-          <div className="flex justify-between items-end mb-10 md:mb-12">
-            <div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-2 md:mb-3 text-neutral-900 dark:text-neutral-50 transition-colors duration-500">About Me</h2>
-              <p className="text-sm md:text-lg text-neutral-500 dark:text-neutral-400 transition-colors duration-500">The analytical mind driving intuitive interfaces</p>
-            </div>
+    {/* ========================================= */}
+      {/* SECTION ABOUT */}
+      {/* ========================================= */}
+      <section id="about" className="relative z-10 py-24 px-8 md:px-24 bg-neutral-50 dark:bg-[#0a0a0a] transition-colors duration-500 overflow-hidden">
+        <div className="max-w-5xl mx-auto">
+          
+          {/* Header Section */}
+          <div className="mb-12">
+            <FadeIn direction="down" delay={0.1}>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-neutral-900 dark:text-neutral-50">Beyond the Pixels</h2>
+            </FadeIn>
+            <FadeIn direction="down" delay={0.2}>
+              <p className="text-lg md:text-xl text-neutral-500 dark:text-neutral-400 max-w-2xl leading-relaxed">
+                Hello, I'm Ivan Bayu Pratama. Here is a glimpse into my background, my community involvement, and what keeps me grounded outside of the canvas.
+              </p>
+            </FadeIn>
           </div>
-        </FadeIn>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 auto-rows-[minmax(140px,auto)] md:auto-rows-[minmax(250px,auto)] group/bento">
-          <FadeIn direction="left" delay={0.3} className="col-span-2 md:col-span-2 row-span-2 md:row-span-1">
-            <div className="h-full bg-white dark:bg-neutral-900 p-6 md:p-12 rounded-[2rem] md:rounded-4xl border border-neutral-200 dark:border-neutral-800 flex flex-col justify-center transition-colors shadow-sm">
-              <h3 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-neutral-900 dark:text-neutral-50 tracking-tight">The Logical Framework</h3>
-              <div className="space-y-3 md:space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-xs md:text-base">
-                <p>
-                  As a UI/UX Designer and System Analyst based in Bandung (originally from Cirebon), my approach to design is heavily rooted in logical frameworks. Before initiating any design iteration, I prioritize in-depth research with
-                  stakeholders utilizing various applicable methodologies.
-                </p>
-                <p className="hidden md:block">
-                  I argue that exceptional design is not just about visual aesthetics; it must be fundamentally relevant and address actual needs. This requires navigating data structures, system limitations, and logical workflows. This
-                  combined foundation of empirical research and technical understanding allows me to craft solutions that are both intuitive for users and feasible for developers.
-                </p>
+         {/* ========================================= */}
+          {/* Dome Gallery */}
+          {/* ========================================= */}
+          <FadeIn direction="up" delay={0.3}>
+            <div className="relative w-full h-[500px] md:h-[700px] mb-16 overflow-hidden group">
+              
+              <DomeGallery 
+                fit={1} 
+                minRadius={450} 
+                maxVerticalRotationDeg={5} 
+                segments={20} 
+                dragDampening={1} 
+                grayscale={false} 
+                overlayBlurColor="#0a0a0a" 
+              />
+              
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <span className="text-xs font-medium text-white tracking-widest uppercase">Drag to explore</span>
               </div>
             </div>
           </FadeIn>
-          <FadeIn direction="right" delay={0.4} className="col-span-1 row-span-2 md:row-span-1 h-full min-h-[160px] md:min-h-full">
-            <div className="relative h-full w-full rounded-[2rem] md:rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 shadow-sm">
-              <div className="absolute inset-0 bg-[url('/images/Work.jpeg')] bg-cover bg-center"></div>
-            </div>
-          </FadeIn>
-          <FadeIn direction="left" delay={0.5} className="col-span-1 row-span-2 md:row-span-1 h-full min-h-[160px] md:min-h-full">
-            <div className="relative h-full w-full rounded-[2rem] md:rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-800 shadow-sm">
-              <div className="absolute inset-0 bg-[url('/images/GDGOC.jpeg')] bg-cover bg-center"></div>
-            </div>
-          </FadeIn>
-          <FadeIn direction="right" delay={0.6} className="col-span-2 md:col-span-2 h-full">
-            <div className="h-full bg-neutral-900 dark:bg-neutral-50 p-6 md:p-12 rounded-[2rem] md:rounded-4xl border border-neutral-800 dark:border-neutral-200 flex flex-col justify-center transition-colors shadow-xl">
-              <h3 className="text-lg md:text-2xl font-bold mb-3 md:mb-6 text-white dark:text-neutral-900 tracking-tight">Leadership & Collaboration</h3>
-              <div className="space-y-3 md:space-y-4 text-neutral-300 dark:text-neutral-600 leading-relaxed text-xs md:text-base">
-                <p>
-                  Design is rarely a solo endeavor. During my tenure as the Media Creative Staff at GDG (Google Developer Groups) on Campus Pasundan University, I was responsible for translating complex, tech-centric initiatives into
-                  engaging visual communications.
-                </p>
-                <p>Having completed my term, I now carry forward that experience as a critical foundation for aligning differing stakeholder opinions and navigating collaborative team dynamics in fast-paced environments.</p>
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)] group/bento">
+            {/* Card 1 */}
+            <FadeIn direction="left" delay={0.4} className="md:col-span-2">
+              <div className="h-full bg-white dark:bg-neutral-900/50 p-8 md:p-12 rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col justify-center transition-colors">
+                <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-neutral-50">The Logical Framework</h3>
+                <div className="space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+                  <p>
+                    As a UI/UX Designer and System Analyst based in Bandung (originally from Cirebon), my approach to design is heavily rooted in logical frameworks. Before initiating any design iteration, I prioritize in-depth research with stakeholders utilizing various applicable methodologies.
+                  </p>
+                  <p>
+                    I argue that exceptional design is not just about visual aesthetics; it must be fundamentally relevant and address actual needs. This requires navigating data structures, system limitations, and logical workflows.
+                  </p>
+                </div>
               </div>
-              <div className="mt-6 md:mt-auto md:pt-12 flex items-center gap-3 opacity-50">
-                <span className="w-8 md:w-12 h-[2px] bg-neutral-500"></span>
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white dark:text-neutral-900">Community & Impact</span>
+            </FadeIn>
+            
+            {/* Card 2 */}
+            <FadeIn direction="right" delay={0.5} className="h-full">
+              <div className="relative h-full rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 min-h-[300px] md:min-h-full">
+                <div className="absolute inset-0 bg-[url('/images/Work.jpeg')] bg-cover bg-center"></div>
               </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+            
+            {/* Card 3 */}
+            <FadeIn direction="left" delay={0.6}>
+              <div className="relative rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 h-full flex items-center justify-center">
+                <img src="/images/GDGOC.jpeg" alt="GDGOC Activity" className="w-full h-full object-cover block" />
+              </div>
+            </FadeIn>
+            
+            {/* Card 4 */}
+            <FadeIn direction="right" delay={0.7} className="md:col-span-2 h-full">
+              <div className="h-full bg-neutral-900 dark:bg-neutral-900/80 p-8 md:p-12 rounded-4xl border border-neutral-800 dark:border-neutral-700/50 flex flex-col transition-colors">
+                <h3 className="text-2xl font-bold mb-6 text-white dark:text-neutral-50">Leadership & Collaboration</h3>
+                <div className="space-y-4 text-neutral-300 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+                  <p>
+                    Design is rarely a solo endeavor. During my tenure as the Media Creative Staff at GDG (Google Developer Groups) on Campus Pasundan University, I was responsible for translating complex, tech-centric initiatives into engaging visual communications.
+                  </p>
+                  <p>Having completed my term, I now carry forward that experience as a critical foundation for aligning differing stakeholder opinions and navigating collaborative team dynamics in fast-paced environments.</p>
+                </div>
+                <div className="mt-auto pt-8 flex items-center gap-4 opacity-50">
+                  <span className="w-12 h-[2px] bg-neutral-500"></span>
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase text-white">Community & Impact</span>
+                </div>
+              </div>
+            </FadeIn>
+            
+            {/* Card 5 */}
+            <FadeIn direction="up" delay={0.8} className="md:col-span-3">
+              <div className="h-full bg-white dark:bg-neutral-900/50 p-8 md:p-12 rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col md:flex-row gap-8 items-center transition-colors">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-neutral-50">The Offline Equilibrium</h3>
+                  <div className="space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+                    <p>To balance the high-speed, fast-iteration culture of the digital world, I step away from the screen by playing guitar, hanging out at the billiard table, and caring for my pet Brazil turtle.</p>
+                    <p>
+                      Trading the monitor for a relaxed game of pool, the creative rhythm of guitar, or the deliberate pace of turtle care gives me essential space to decompress. These offline moments help me clear my head, allowing me to return to system architectures and complex design problems with a much sharper perspective.
+                    </p>
+                  </div>
+                </div>
+                {/* Card 6 */}
+                <div className="w-full md:w-1/3 aspect-square relative rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 shrink-0">
+                  <div className="absolute inset-0 bg-[url('/images/Hobbies.jpeg')] bg-cover bg-center"></div>
+                </div>
+              </div>
+            </FadeIn>
+
+          </div>
         </div>
       </section>
 
@@ -524,7 +577,7 @@ export default function Home() {
                   style={{ pathLength: roadScrollProgress }}
                 />
 
-                {/* 3. Animasi "Loading" */}
+                {/* 3. Animasi Loading */}
                 <path
                   d="M 0 190 C 150 190, 200 270, 350 270 C 500 270, 600 110, 750 110 C 900 110, 1000 270, 1150 270 C 1300 270, 1400 110, 1550 110 C 1700 110, 1750 190, 1800 190"
                   fill="none"
