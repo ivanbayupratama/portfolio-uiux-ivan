@@ -35,17 +35,17 @@ type ItemDef = {
 };
 
 const DEFAULT_IMAGES: ImageItem[] = [
-  { src: '/images/Gambar-1.jpg', alt: 'My Workspace' },
-  { src: '/images/Gambar-2.jpg', alt: 'GDGOC Event' },
+  { src: '/images/Gambar-1.jpg', alt: 'UI UX Design' },
+  { src: '/images/Gambar-2.jpg', alt: 'Coding-2' },
   { src: '/images/Gambar-4.jpeg', alt: 'My Hobbies' },
-  { src: '/images/Gambar-4.jpeg', alt: 'My Workspace 2' },
-  { src: '/images/Gambar-5.jpeg', alt: 'GDGOC Event 2' },
-  { src: '/images/gambar-6.jpeg', alt: 'My Hobbies 2' },
-  { src: '/images/Gambar-7.jpeg', alt: 'My Workspace 3' },
-  { src: '/images/Gambar-8.jpeg', alt: 'My Workspace 3' },
-  { src: '/images/Gambar-9.jpeg', alt: 'My Workspace 3' },
-    { src: '/images/Gambar-10.jpeg', alt: 'My Workspace 3' },
-  { src: '/images/Gambar-11.jpeg', alt: 'My Workspace 3' }
+  { src: '/images/Gambar-4.jpeg', alt: 'Project Management' },
+  { src: '/images/Gambar-5.jpeg', alt: 'Foto kelas matakuliah Algoritma Pemrograman' },
+  { src: '/images/Gambar-6.jpeg', alt: 'Foto angkatan 2022' },
+  { src: '/images/Gambar-7.jpeg', alt: 'Foto bersama teman sekelas' },
+  { src: '/images/Gambar-8.jpeg', alt: 'Foto bersama teman sekelas-2' },
+  { src: '/images/Gambar-9.jpeg', alt: 'My Guitar' },
+  { src: '/images/Gambar-10.jpeg', alt: 'Coding' },
+  { src: '/images/Gambar-11.jpeg', alt: 'GDGOC Media Creative Team' }
 
 ];
 
