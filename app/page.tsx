@@ -1,6 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { 
+  SiFigma, SiFramer, SiReact, 
+  SiNextdotjs, SiTailwindcss, SiGithub 
+} from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
+import { FaRobot, FaPalette, FaPenNib } from "react-icons/fa";
+import { BsStars } from "react-icons/bs"; 
+import { MdOutlinePhotoCamera } from "react-icons/md"; 
 import DomeGallery from "@/components/DomeGallery";
 import DarkVeil from "../components/DarkVeil";
 import Image from "next/image";
@@ -10,6 +18,7 @@ import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSp
 import FadeIn from "@/components/FadeIn";
 
 import { toolsData, skillsData, certificatesData, caseStudiesDB } from "@/lib/data";
+import { image } from "framer-motion/client";
 
 const TiltIconBox = ({ icon, colorClass }: { icon: ReactNode; colorClass: string }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -327,12 +336,12 @@ export default function Home() {
           {/* Dome Gallery */}
           {/* ========================================= */}
           <FadeIn direction="up" delay={0.3}>
-            <div className="relative w-full h-[500px] md:h-[700px] mb-16 overflow-hidden group">
+            <div className="relative w-[92%] md:w-full mx-auto h-[380px] md:h-[700px] mb-16 overflow-hidden group">
               
               <DomeGallery 
                 fit={1} 
                 minRadius={450} 
-                maxVerticalRotationDeg={5} 
+                maxVerticalRotationDeg={0} 
                 segments={20} 
                 dragDampening={1} 
                 grayscale={false} 
@@ -344,13 +353,14 @@ export default function Home() {
               </div>
             </div>
           </FadeIn>
-          {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)] group/bento">
+        {/* Bento Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto md:auto-rows-[minmax(250px,auto)] group/bento">
+            
             {/* Card 1 */}
             <FadeIn direction="left" delay={0.4} className="md:col-span-2">
-              <div className="h-full bg-white dark:bg-neutral-900/50 p-8 md:p-12 rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col justify-center transition-colors">
-                <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-neutral-50">The Logical Framework</h3>
-                <div className="space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+              <div className="h-full bg-white dark:bg-neutral-900/50 p-6 md:p-10 rounded-3xl md:rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col justify-center transition-colors">
+                <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-neutral-900 dark:text-neutral-50">The Logical Framework</h3>
+                <div className="space-y-3 md:space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
                   <p>
                     As a UI/UX Designer and System Analyst based in Bandung (originally from Cirebon), my approach to design is heavily rooted in logical frameworks. Before initiating any design iteration, I prioritize in-depth research with stakeholders utilizing various applicable methodologies.
                   </p>
@@ -363,41 +373,43 @@ export default function Home() {
             
             {/* Card 2 */}
             <FadeIn direction="right" delay={0.5} className="h-full">
-              <div className="relative h-full rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 min-h-[300px] md:min-h-full">
+              <div className="relative h-[180px] md:h-full w-full rounded-3xl md:rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50">
                 <div className="absolute inset-0 bg-[url('/images/Work.jpeg')] bg-cover bg-center"></div>
               </div>
             </FadeIn>
             
             {/* Card 3 */}
             <FadeIn direction="left" delay={0.6}>
-              <div className="relative rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 h-full flex items-center justify-center">
+              <div className="relative h-[180px] md:h-full w-full rounded-3xl md:rounded-4xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 flex items-center justify-center">
                 <img src="/images/GDGOC.jpeg" alt="GDGOC Activity" className="w-full h-full object-cover block" />
               </div>
             </FadeIn>
             
             {/* Card 4 */}
             <FadeIn direction="right" delay={0.7} className="md:col-span-2 h-full">
-              <div className="h-full bg-neutral-900 dark:bg-neutral-900/80 p-8 md:p-12 rounded-4xl border border-neutral-800 dark:border-neutral-700/50 flex flex-col transition-colors">
-                <h3 className="text-2xl font-bold mb-6 text-white dark:text-neutral-50">Leadership & Collaboration</h3>
-                <div className="space-y-4 text-neutral-300 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+              <div className="h-full bg-neutral-900 dark:bg-neutral-900/80 p-6 md:p-10 rounded-3xl md:rounded-4xl border border-neutral-800 dark:border-neutral-700/50 flex flex-col transition-colors">
+                <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-white dark:text-neutral-50">Leadership & Collaboration</h3>
+                <div className="space-y-3 md:space-y-4 text-neutral-300 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
                   <p>
                     Design is rarely a solo endeavor. During my tenure as the Media Creative Staff at GDG (Google Developer Groups) on Campus Pasundan University, I was responsible for translating complex, tech-centric initiatives into engaging visual communications.
                   </p>
-                  <p>Having completed my term, I now carry forward that experience as a critical foundation for aligning differing stakeholder opinions and navigating collaborative team dynamics in fast-paced environments.</p>
+                  <p>
+                    Having completed my term, I now carry forward that experience as a critical foundation for aligning differing stakeholder opinions and navigating collaborative team dynamics in fast-paced environments.
+                  </p>
                 </div>
-                <div className="mt-auto pt-8 flex items-center gap-4 opacity-50">
-                  <span className="w-12 h-[2px] bg-neutral-500"></span>
-                  <span className="text-xs font-bold tracking-[0.2em] uppercase text-white">Community & Impact</span>
+                <div className="mt-6 md:mt-auto pt-6 flex items-center gap-4 opacity-50">
+                  <span className="w-8 md:w-12 h-[2px] bg-neutral-500"></span>
+                  <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white">Community & Impact</span>
                 </div>
               </div>
             </FadeIn>
             
             {/* Card 5 */}
             <FadeIn direction="up" delay={0.8} className="md:col-span-3">
-              <div className="h-full bg-white dark:bg-neutral-900/50 p-8 md:p-12 rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col md:flex-row gap-8 items-center transition-colors">
+              <div className="h-full bg-white dark:bg-neutral-900/50 p-6 md:p-10 rounded-3xl md:rounded-4xl border border-neutral-200 dark:border-neutral-800/50 flex flex-col md:flex-row gap-6 md:gap-8 items-center transition-colors">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-neutral-50">The Offline Equilibrium</h3>
-                  <div className="space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
+                  <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-neutral-900 dark:text-neutral-50">The Offline Equilibrium</h3>
+                  <div className="space-y-3 md:space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
                     <p>To balance the high-speed, fast-iteration culture of the digital world, I step away from the screen by playing guitar, hanging out at the billiard table, and caring for my pet Brazil turtle.</p>
                     <p>
                       Trading the monitor for a relaxed game of pool, the creative rhythm of guitar, or the deliberate pace of turtle care gives me essential space to decompress. These offline moments help me clear my head, allowing me to return to system architectures and complex design problems with a much sharper perspective.
@@ -405,7 +417,7 @@ export default function Home() {
                   </div>
                 </div>
                 {/* Card 6 */}
-                <div className="w-full md:w-1/3 aspect-square relative rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 shrink-0">
+                <div className="w-full md:w-1/3 h-[200px] md:h-auto md:aspect-square relative rounded-2xl md:rounded-3xl overflow-hidden border border-neutral-200 dark:border-neutral-800/50 bg-neutral-200 dark:bg-neutral-800/50 shrink-0">
                   <div className="absolute inset-0 bg-[url('/images/Hobbies.jpeg')] bg-cover bg-center"></div>
                 </div>
               </div>
@@ -415,56 +427,108 @@ export default function Home() {
         </div>
       </section>
 
+     {/* ========================================= */}
+      {/* SECTION: SOFTWARE & TOOLS */}
       {/* ========================================= */}
-      {/* 3. TOOLS & SOFTWARE SECTION */}
-      {/* ========================================= */}
-      <section className="relative z-10 py-20 md:py-32 border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/30 overflow-hidden flex flex-col transition-colors duration-500">
-        <FadeIn direction="up">
-          <div className="text-center px-8 mb-4 flex flex-col items-center">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 transition-colors duration-500">Software & Tools</h2>
-          </div>
-        </FadeIn>
+      <section className="relative z-10 py-32 px-4 md:px-24 bg-[#0a0a0a] overflow-hidden">
+        
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll-left 25s linear infinite;
+          }
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+          .fade-edges {
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+          }
+        `}} />
 
-        <div className="hidden sm:flex relative w-full h-[400px] overflow-hidden mask-[linear-gradient(to_right,transparent,black_5%,black_95%,transparent)] mt-8 justify-center items-center">
-          <div className="relative w-[1200px] h-[400px] shrink-0 pointer-events-none">
-            {duplicatedTools.map((item, index) => (
-              <CoasterItem key={index} item={item} index={index} totalItems={duplicatedTools.length} coasterProgress={coasterProgress} setIsCoasterHovered={setIsCoasterHovered} />
-            ))}
-          </div>
+        <div className="max-w-5xl mx-auto flex flex-col items-center">
+          
+          {/* Header Texts */}
+          <FadeIn direction="down" delay={0.1}>
+            <h3 className="text-[#0779fa] font-bold tracking-[0.2em] uppercase text-sm mb-4 text-center">
+              Tech Stack
+            </h3>
+          </FadeIn>
+          <FadeIn direction="down" delay={0.2}>
+            <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-16 leading-tight">
+              Powering My Workflow
+            </h2>
+          </FadeIn>
+
+          {/* Variabel TOOLS */}
+          {(() => {
+            const TOOLS = [
+              { name: "VS Code", image: "/images/tools/vscode.svg" },
+              { name: "Canva", image: "/images/tools/canva.svg" },
+              { name: "Photoshop", image: "/images/tools/photoshop.svg" },
+              { name: "Illustrator", image: "/images/tools/illustrator.svg" },
+              { name: "Figma", image: "/images/tools/figma.svg" },
+              { name: "HTML", image: "/images/tools/html5.svg" },
+              { name: "CSS", image: "/images/tools/css_old.svg" },
+              { name: "JavaScript", image: "/images/tools/javascript.svg" },
+              { name: "React", image: "/images/tools/react_light.svg" },
+              { name: "Next.js", image: "/images/tools/nextjs_icon_dark.svg" },
+              { name: "Tailwind", image: "/images/tools/tailwindcss.svg" },
+              { name: "Framer", image: "/images/tools/framer_dark.svg" },
+              { name: "Gemini", image: "/images/tools/gemini.svg" },
+              { name: "ClickUp", image: "/images/tools/clickup.svg" },
+              { name: "GitHub", image: "/images/tools/github_dark.svg" },
+            ];
+
+            return (
+              <>
+                {/* 1. TAMPILAN DESKTOP */}
+                <div className="hidden md:grid grid-cols-5 gap-y-16 gap-x-12 w-full max-w-4xl">
+                  {TOOLS.map((tool, index) => (
+                    <FadeIn 
+                      key={`desktop-${tool.name}`} 
+                      direction="up" 
+                      delay={0.3 + (index * 0.05)} 
+                      className="flex flex-col items-center justify-center gap-4 group cursor-pointer"
+                    >
+                      <div className="relative w-14 h-14 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2 group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                        <Image src={tool.image} alt={`${tool.name} logo`} fill className="object-contain" />
+                      </div>
+                      <span className="text-sm font-medium text-neutral-400 group-hover:text-white transition-colors duration-300 text-center">
+                        {tool.name}
+                      </span>
+                    </FadeIn>
+                  ))}
+                </div>
+
+                {/* 2. TAMPILAN MOBILE */}
+                <FadeIn direction="up" delay={0.3} className="block md:hidden w-full fade-edges overflow-hidden py-4">
+                  <div className="animate-scroll">
+                    {[...TOOLS, ...TOOLS].map((tool, index) => (
+                      <div 
+                        key={`mobile-${tool.name}-${index}`} 
+                        className="flex flex-col items-center justify-center gap-3 mx-6 min-w-[70px]"
+                      >
+                        <div className="relative w-12 h-12">
+                          <Image src={tool.image} alt={`${tool.name} logo`} fill className="object-contain" />
+                        </div>
+                        <span className="text-xs font-medium text-neutral-400 text-center">
+                          {tool.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </FadeIn>
+              </>
+            );
+          })()}
+
         </div>
-
-        <FadeIn direction="up" delay={0.2} className="sm:hidden mt-4">
-          <div className="relative w-full overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            <motion.div className="flex w-max hover:[animation-play-state:paused]" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, ease: "linear", duration: 15 }}>
-              <div className="flex w-max gap-4 pr-4">
-                {toolsData.map((item, index) => (
-                  <div
-                    key={`block1-${index}`}
-                    className="flex items-center gap-2 px-5 py-2 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs text-neutral-600 dark:text-neutral-400 font-medium whitespace-nowrap shadow-sm transition-colors duration-500"
-                  >
-                    <span>
-                      <item.icon className="w-5 h-5" />
-                    </span>
-                    {item.name}
-                  </div>
-                ))}
-              </div>
-              <div className="flex w-max gap-4 pr-4">
-                {toolsData.map((item, index) => (
-                  <div
-                    key={`block2-${index}`}
-                    className="flex items-center gap-2 px-5 py-2 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl text-xs text-neutral-600 dark:text-neutral-400 font-medium whitespace-nowrap shadow-sm transition-colors duration-500"
-                  >
-                    <span>
-                      <item.icon className="w-5 h-5" />
-                    </span>
-                    {item.name}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </FadeIn>
       </section>
 
       {/* 4. TECHNICAL SKILLS SECTION */}

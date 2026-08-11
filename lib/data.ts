@@ -1,5 +1,6 @@
 import { CaseStudyData } from "@/components/CaseStudyViewer";
-import { SiFigma, SiCanva, SiNextdotjs, SiTailwindcss, SiReact } from "react-icons/si";
+import { SiFigma, SiNextdotjs, SiTailwindcss, SiReact } from "react-icons/si";
+import { FaPalette } from "react-icons/fa"; // Kita gunakan FaPalette sebagai pengganti Canva
 import { DiIllustrator } from "react-icons/di";
 
 // --- INTERFACES ---
@@ -28,7 +29,7 @@ export interface Certificate {
 export const toolsData: Tool[] = [
   { name: "Figma", icon: SiFigma },
   { name: "Adobe Illustrator", icon: DiIllustrator },
-  { name: "Canva", icon: SiCanva },
+  { name: "Canva", icon: FaPalette },
   { name: "Next.js", icon: SiNextdotjs },
   { name: "Tailwind CSS", icon: SiTailwindcss },
   { name: "React", icon: SiReact },

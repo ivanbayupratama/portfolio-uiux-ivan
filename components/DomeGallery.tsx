@@ -46,7 +46,6 @@ const DEFAULT_IMAGES: ImageItem[] = [
   { src: '/images/Gambar-9.jpeg', alt: 'My Guitar' },
   { src: '/images/Gambar-10.jpeg', alt: 'Coding' },
   { src: '/images/Gambar-11.jpeg', alt: 'GDGOC Media Creative Team' }
-
 ];
 
 const DEFAULTS = {
@@ -343,8 +342,11 @@ export default function DomeGallery({
 
         const evt = event as PointerEvent;
         pointerTypeRef.current = (evt.pointerType as any) || 'mouse';
-        if (pointerTypeRef.current === 'touch') evt.preventDefault();
-        if (pointerTypeRef.current === 'touch') lockScroll();
+        
+        // PERBAIKAN MOBILE SCROLL: Matikan pengunci layar bawaan
+        // if (pointerTypeRef.current === 'touch') evt.preventDefault();
+        // if (pointerTypeRef.current === 'touch') lockScroll();
+        
         draggingRef.current = true;
         cancelTapRef.current = false;
         movedRef.current = false;
@@ -357,7 +359,9 @@ export default function DomeGallery({
         if (focusedElRef.current || !draggingRef.current || !startPosRef.current) return;
 
         const evt = event as PointerEvent;
-        if (pointerTypeRef.current === 'touch') evt.preventDefault();
+        
+        // PERBAIKAN MOBILE SCROLL: Biarkan browser melakukan scroll asli
+        // if (pointerTypeRef.current === 'touch') evt.preventDefault();
 
         const dxTotal = evt.clientX - startPosRef.current.x;
         const dyTotal = evt.clientY - startPosRef.current.y;
@@ -393,7 +397,7 @@ export default function DomeGallery({
           let [vMagX] = velArr;
           const [dirX] = dirArr;
           let vx = vMagX * dirX;
-          let vy = 0; // Matikan momentum vertikal
+          let vy = 0;
 
           if (!isTap && Math.abs(vx) < 0.001 && Array.isArray(movement)) {
             const [mx] = movement;
@@ -412,7 +416,9 @@ export default function DomeGallery({
           tapTargetRef.current = null;
 
           if (cancelTapRef.current) setTimeout(() => (cancelTapRef.current = false), 120);
-          if (pointerTypeRef.current === 'touch') unlockScroll();
+          
+          // if (pointerTypeRef.current === 'touch') unlockScroll();
+          
           if (movedRef.current) lastDragEndAt.current = performance.now();
           movedRef.current = false;
         }
@@ -772,7 +778,7 @@ export default function DomeGallery({
           ref={mainRef}
           className="absolute inset-0 grid place-items-center overflow-hidden select-none bg-transparent"
           style={{
-            touchAction: 'none',
+            touchAction: 'pan-y', // PERUBAHAN: Memperbolehkan scroll atas-bawah
             WebkitUserSelect: 'none'
           }}
         >
